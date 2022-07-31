@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +9,62 @@
     <link rel="stylesheet" href="styles.css">
     <script src="library.js" defer></script>
 </head>
-<body>
-    <h1>The Library</h1>
-    <p>This will be a list of books</p>
-    <div id="library-container">
 
+<body>
+    <div id="library-container">
+        <div id="header-container">
+            <h1>library.</h1>
+            <p>Books you've read. Books you haven't read. Books.</p>
+        </div>
+        <div id="book-container">
+            <div class="book book-header">
+                <div class="book-title-header">Title</div>
+                <div class="book-author-header">Author</div>
+                <div class="book-year-header">Year</div>
+                <div class="book-genre-header">Genre</div>
+                <div class="book-read-header">Read</div>
+            </div>
+            <hr>
+            <div class="book">
+                <div class="book-title">Neuromancer</div>
+                <div class="book-author">William Gibson</div>
+                <div class="book-year">1984</div>
+                <div class="book-genre">Science fiction</div>
+                <div class="book-read">YES</div>
+            </div>
+            <hr>
+            <div class="book">
+                <div class="book-title">Gobblydygook </div>
+                <div class="book-author">ben bobby</div>
+                <div class="book-year">1922</div>
+                <div class="book-genre">drama</div>
+                <div class="book-read">YES</div>
+            </div>
+            <hr>
+            <div class="book">
+                <div class="book-title">the perks of being a wallflower</div>
+                <div class="book-author">author authorson</div>
+                <div class="book-year">1984</div>
+                <div class="book-genre">who knows</div>
+                <div class="book-read">NO</div>
+            </div>
+            <hr>
+        </div>
+        <div id="footer-container">
+            <button id="add-book">ADD BOOK</button>
+        </div>
+        <div id="add-container">
+            <form id="add-form" action="">
+                <label for="title">Title:</label><input type="text" name="title" id="title">
+                <label for="author">Author:</label><input type="text" name="author" id="author">
+                <label for="year">Year:</label><input type="number" name="year" id="year">
+                <label for="genre">Genre:</label><input type="text" name="genre" id="genre">
+                <input type="checkbox" name="have-read" id="have-read"><label for="have-read">Have read</label>
+            </form>
+            <button for="add-form" type="submit">Add!</button>
+        </div>
     </div>
+    
 </body>
+
 </html>

@@ -1,3 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700&family=Roboto+Mono:wght@200;400;700&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --grid-columns: 6fr 2fr 1fr 2fr 0.6fr
+}
+
+html, body {
+    margin: 0;
+    padding: 5vh 0 0 0;
+    font-family: Poppins, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
 h1 {
-    color: red;
+    font-family: "Roboto Mono", monospace;
+    margin-bottom: 0;
+}
+
+p {
+    margin: 0;
+}
+
+#library-container {
+    width: min(80vw, 1000px);
+}
+
+#book-container {
+    margin: 24px 0;
+}
+
+.book {
+    display: grid;
+    grid-template-columns: var(--grid-columns);
+    align-items: center;
+    height: 32px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgb(209, 209, 209);
+}
+
+.book-header {
+    font-weight: 700;
+}
+
+/* .book *:not(:first-child) {
+    text-align: center;
+} */
+
+
+#footer-container button {
+    padding: 10px 14px;
+    font-weight: 700;
+    border: 2px solid black;
+    background-color: rgb(212, 212, 212);
+}
+
+#footer-container button:hover {
+    cursor: pointer;
+    background-color: pink;
+}
+
+#footer-container button:active {
+    background-color: white;
+}
+
+
+/* Add Book container */
+
+#add-container {
+    display: none;
+    background-color: pink;
+    border: 2px solid black;
+}
+
+#add-container form {
+    display: grid;
+    grid-template-columns: var(--grid-columns);
+}
+
+#add-container label {
+    display: none;
 }
