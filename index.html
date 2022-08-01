@@ -32,23 +32,26 @@
                 <div class="book-year">1984</div>
                 <div class="book-genre">Science fiction</div>
                 <div class="book-read">YES</div>
-            </div>
-            <hr>
-            -->
+            </div> -->
         </div>
         <div id="footer-container">
-            <button id="add-book">ADD BOOK</button>
+            <button id="add-book">+</button>
         </div>
-        <div id="add-container">
+        <div id="add-container" class="hidden">
             <hr>
             <form id="add-form">
-                <label for="title">Title:</label><input type="text" name="title" id="title">
-                <label for="author">Author:</label><input type="text" name="author" id="author">
-                <label for="year">Year:</label><input type="number" name="year" id="year">
-                <label for="genre">Genre:</label><input type="text" name="genre" id="genre">
-                <input type="checkbox" name="read" id="read"><label for="read">Have read</label>
+                <label for="title">Title:</label>
+                <label for="author">Author:</label>
+                <label for="year">Year:</label>
+                <label for="genre">Genre:</label>
+                <label for="read">Read?</label>
+                <input type="text" name="title" id="title" required>
+                <input type="text" name="author" id="author" required>
+                <input type="number" name="year" id="year" min="1">
+                <input type="text" name="genre" id="genre">
+                <input type="checkbox" name="read" id="read">
             </form>
-            <button id="add-button" form="add-form" type="submit">Add!</button>
+            <button id="add-button" form="add-form" type="submit">add book.</button>
             <hr>
         </div>
     </div>

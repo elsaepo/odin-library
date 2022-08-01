@@ -25,6 +25,22 @@ p {
     margin: 0;
 }
 
+button {
+    background-color: rgb(212, 212, 212);
+    border: 2px solid black;
+    
+    font-weight: 600;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(177, 218, 177);
+}
+
+button:active {
+    background-color: white;
+}
+
 #library-container {
     width: min(80vw, 1000px);
 }
@@ -36,11 +52,23 @@ p {
 .book {
     display: grid;
     grid-template-columns: var(--grid-columns);
+    grid-template-rows: 1fr 0;
     align-items: center;
-    height: 32px;
+    height: 40px;
+}
+
+.book:not(:first-of-type):hover {
+    background-color: rgb(212, 233, 212);
+}
+
+.book::after {
+    content: "";
+    grid-column: 1/-1;
+    border-bottom: 1px solid rgb(209, 209, 209);
 }
 
 hr {
+    display: none;
     border: none;
     border-top: 1px solid rgb(209, 209, 209);
 }
@@ -55,28 +83,24 @@ hr {
 
 
 #footer-container button {
-    padding: 10px 14px;
-    font-weight: 700;
-    border: 2px solid black;
-    background-color: rgb(212, 212, 212);
-}
-
-#footer-container button:hover {
-    cursor: pointer;
-    background-color: pink;
-}
-
-#footer-container button:active {
-    background-color: white;
+    height: 32px;
+    width: 32px;
+    font-size: 1.2rem;
 }
 
 
 /* Add Book container */
 
 #add-container {
-    /* display: none; */
-    background-color: pink;
-    padding: 10px 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: 16px;
+    padding: 12px 0 16px;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
 }
 
 #add-container hr {
@@ -86,8 +110,32 @@ hr {
 #add-container form {
     display: grid;
     grid-template-columns: var(--grid-columns);
+    grid-template-rows: 24px 1fr;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-#add-container label {
-    display: none;
+#add-container input {
+    width: calc(100% - 24px);
+    height: 28px;
+    border: 1px solid black;
+    font-size: 1.1rem;
+    padding: 8px;
+}
+
+#add-container button {
+    padding: 8px 10px;
+}
+
+[type="checkbox"] {
+    width: 40px; height: 40px;
+    transition: box-shadow .3s;
+    cursor: pointer;
+    border: 0;
+    appearance: none;
+    transform: translateX(-4px);
+}
+
+[type="checkbox"]:checked {
+    box-shadow: inset 0 0 0 15px rgb(80, 80, 80);
 }
