@@ -77,6 +77,27 @@ hr {
     font-weight: 700;
 }
 
+.book-sort {
+    position: relative;
+}
+
+.book-sort::after{
+    content: "▸";
+    position: absolute;
+    color: rgb(161, 161, 161);
+    padding-left: 8px;
+    transition: color 0.2s ease;
+}
+
+.book-sort:hover {
+    cursor: pointer;
+}
+
+.book-sort:hover::after {
+    color: black;
+    transition: color 0.2s ease;
+}
+
 /* .book *:not(:first-child) {
     text-align: center;
 } */
@@ -88,13 +109,27 @@ hr {
     font-size: 1.2rem;
 }
 
+.clicked {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-out;
+}
+
+.clicked:hover {
+    background-color: rgb(230, 175, 175);
+}
+
+.clicked-reverse {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-out;
+}
+
 
 /* Add Book container */
 
 #add-container {
     border-top: 2px solid black;
     border-bottom: 2px solid black;
-    margin-top: 16px;
+    margin-top: 24px;
     padding: 12px 0 16px;
     overflow: hidden;
 }

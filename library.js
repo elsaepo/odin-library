@@ -37,16 +37,26 @@ function addBookToLibrary(book) {
     drawLibrary();
 }
 
-function drawLibrary(){
+function sortBooks(header) {
+    console.log(header)
+    myLibrary.sort(function(a, b){
+        if (a[header] > b[header]){
+            return 1;
+        } else return -1;
+    })
+    drawLibrary();
+}
+
+function drawLibrary() {
     // Deletes the current library DOM (excluding the header and first <hr>)
-    for (let i = library.childNodes.length-1; i > 3; i--){
+    for (let i = library.childNodes.length - 1; i > 3; i--) {
         library.childNodes[i].remove();
     };
     // Create DOM element for each book
-    for (let book of myLibrary){
+    for (let book of myLibrary) {
         let bookBox = document.createElement("div");
         bookBox.classList.add("book");
-        for (let prop in book){
+        for (let prop in book) {
             let propBox = document.createElement("div");
             propBox.classList.add(`book-${prop}`);
             propBox.textContent = book[prop];
@@ -59,6 +69,15 @@ function drawLibrary(){
 drawLibrary();
 
 
+let bookHeaders = document.querySelectorAll(".book-sort");
+
+bookHeaders.forEach(book => {
+    book.addEventListener("mousedown", function(){
+        sortBooks(this.textContent.toLowerCase())
+    })
+})
+
+
 // Event listener & logic for Book Add button
 
 let formButton = document.querySelector("#add-book");
@@ -67,11 +86,21 @@ let addForm = document.querySelector("#add-container");
 let addButton = document.querySelector("#add-button");
 let addInputs = document.querySelectorAll("#add-form input");
 
-formButton.addEventListener("mousedown", function(){
+formButton.addEventListener("mousedown", function (event) {
     addForm.classList.toggle("hidden");
+    if (event.target.classList.contains("clicked")) {
+        event.target.classList.remove("clicked");
+        event.target.classList.add("clicked-reverse");
+        event.target.textContent = "+";
+    } else {
+        event.target.classList.remove("clicked-reverse");
+        event.target.classList.add("clicked");
+        event.target.textContent = "-";
+    }
+
 })
 
-addButton.addEventListener("click", function(event){
+addButton.addEventListener("click", function (event) {
     // Prevent form submission (so as not to refresh the page)
     event.preventDefault();
     // Creates a book using the Constructor function, passing in the values from input elements
