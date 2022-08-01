@@ -74,9 +74,13 @@ hr {
 /* Add Book container */
 
 #add-container {
-    display: none;
+    /* display: none; */
     background-color: pink;
-    border: 2px solid black;
+    padding: 10px 0;
+}
+
+#add-container hr {
+    border-color: black;
 }
 
 #add-container form {

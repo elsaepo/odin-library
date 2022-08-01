@@ -40,14 +40,16 @@
             <button id="add-book">ADD BOOK</button>
         </div>
         <div id="add-container">
-            <form id="add-form" action="">
+            <hr>
+            <form id="add-form">
                 <label for="title">Title:</label><input type="text" name="title" id="title">
                 <label for="author">Author:</label><input type="text" name="author" id="author">
                 <label for="year">Year:</label><input type="number" name="year" id="year">
                 <label for="genre">Genre:</label><input type="text" name="genre" id="genre">
-                <input type="checkbox" name="have-read" id="have-read"><label for="have-read">Have read</label>
+                <input type="checkbox" name="read" id="read"><label for="read">Have read</label>
             </form>
-            <button for="add-form" type="submit">Add!</button>
+            <button id="add-button" form="add-form" type="submit">Add!</button>
+            <hr>
         </div>
     </div>
     
