@@ -37,12 +37,11 @@ function addBookToLibrary(book) {
     drawLibrary();
 }
 
-function sortBooks(header) {
-    console.log(header)
+function sortBooks(header, direction) {
     myLibrary.sort(function(a, b){
         if (a[header] > b[header]){
-            return 1;
-        } else return -1;
+            return direction === "down" ? -1 : 1;
+        } else return direction === "down" ? 1 : -1;
     })
     drawLibrary();
 }
@@ -69,11 +68,26 @@ function drawLibrary() {
 drawLibrary();
 
 
+// Event listeners for sorting the table
+// I think this could be refactored to avoid using first/last children so much
+
 let bookHeaders = document.querySelectorAll(".book-sort");
 
 bookHeaders.forEach(book => {
     book.addEventListener("mousedown", function(){
-        sortBooks(this.textContent.toLowerCase())
+        // Determine the sort direction
+        let sortDirection = "down";
+        let sortSymbol = this.lastElementChild;
+        if (sortSymbol.classList.contains("sort-down")){
+            sortDirection = "up";
+        };
+        // Reset all symbols
+        bookHeaders.forEach(header => {
+            header.lastElementChild.classList.remove("sort-down", "sort-up");
+        })
+        // Re-add the correct sort direction symbol
+        sortSymbol.classList.add(`sort-${sortDirection}`);
+        sortBooks(this.firstElementChild.textContent.toLowerCase(), sortDirection);
     })
 })
 
@@ -82,7 +96,6 @@ bookHeaders.forEach(book => {
 
 let formButton = document.querySelector("#add-book");
 let addForm = document.querySelector("#add-container");
-
 let addButton = document.querySelector("#add-button");
 let addInputs = document.querySelectorAll("#add-form input");
 

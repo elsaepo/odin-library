@@ -21,14 +21,20 @@ h1 {
     margin-bottom: 0;
 }
 
-p {
+h2, p {
     margin: 0;
+    font-size: inherit;
+}
+
+h2 {
+    display: inline-block;
+    font-weight: 700;
+    padding-right: 8px;
 }
 
 button {
     background-color: rgb(212, 212, 212);
     border: 2px solid black;
-    
     font-weight: 600;
 }
 
@@ -73,29 +79,37 @@ hr {
     border-top: 1px solid rgb(209, 209, 209);
 }
 
-.book-header {
-    font-weight: 700;
-}
-
 .book-sort {
     position: relative;
-}
-
-.book-sort::after{
-    content: "▸";
-    position: absolute;
-    color: rgb(161, 161, 161);
-    padding-left: 8px;
-    transition: color 0.2s ease;
 }
 
 .book-sort:hover {
     cursor: pointer;
 }
 
-.book-sort:hover::after {
+.sorter {
+    display: inline-block;
+    position: absolute;
+    color: rgb(161, 161, 161);
+    transform: rotate(0deg);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.book-sort:hover .sorter {
     color: black;
     transition: color 0.2s ease;
+}
+
+.sort-down {
+    color: black;
+    transform: rotate(90deg);
+    transition: transform 0.2s ease;
+}
+
+.sort-up {
+    color: black;
+    transform: rotate(-90deg);
+    transition: transform 0.2s ease;
 }
 
 /* .book *:not(:first-child) {
