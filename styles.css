@@ -64,7 +64,11 @@ button:active {
 }
 
 .book:not(:first-of-type):hover {
-    background-color: rgb(212, 233, 212);
+    background-color: rgb(233, 207, 207);
+}
+
+.book.read-bg:hover {
+    background-color: rgb(215, 235, 215);
 }
 
 .book::after {
@@ -92,7 +96,7 @@ hr {
     position: absolute;
     color: rgb(161, 161, 161);
     transform: rotate(0deg);
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s linear;
 }
 
 .book-sort:hover .sorter {
@@ -113,20 +117,39 @@ hr {
 }
 
 
+/* Read Toggles */
+
 .book-read {
-    background-color: white;
-    border: 1px solid rgb(194, 194, 194);
+    background: linear-gradient(rgba(0,0,0,0) 20%, rgb(240, 240, 240) 20%, rgb(240, 240, 240) 80%, rgba(0,0,0,0) 80%);
+    border: 0px solid rgb(194, 194, 194);
     width: 80%;
     height: 60%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.book-read:hover * {
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.book-read * {
+    height: 18px;
+    width: 18px;
+    border: 1px solid black;
+    position: absolute;
+    background-color: rgb(228, 175, 175);
+    left: 0;
+    right: auto;
+    transition: transform 0.1s ease;
 }
 
 .read-true {
-    border: 2px solid green;
+    background-color: rgb(178, 197, 173);
+    transform: translateX(26px);
 }
 
-.read-false {
-    border: 2px solid red;
-}
 
 /* .book *:not(:first-child) {
     text-align: center;

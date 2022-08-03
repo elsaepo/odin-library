@@ -1,7 +1,7 @@
-let library = document.querySelector("#book-container");
+const library = document.querySelector("#book-container");
 
 let nextBookID = 4;
-let myLibrary = [
+const myLibrary = [
     {
         title: "1984",
         author: "George Orwell",
@@ -51,15 +51,19 @@ function sortBooks(header, direction) {
     drawLibrary();
 }
 
-function readSwitch(book) {
-    if (book[read]) {
-        this[read] = true;
-        this.classList.add("read-true");
+function toggleRead(book) {
+    let thisBookID = book.parentElement.getAttribute("data");
+    let thisBookIndex = myLibrary.findIndex(obj => obj.bookID === Number(thisBookID));
+    if (myLibrary[thisBookIndex].read){
+        myLibrary[thisBookIndex].read = false;
     } else {
-        this[read] = false;
-        this.classList.remove("read-true");
+        myLibrary[thisBookIndex].read = true;
     }
+    console.log(book)
+    book.parentElement.classList.toggle("read-bg");
+    book.firstChild.classList.toggle("read-true");
 }
+
 
 function drawLibrary() {
     // Deletes the current library DOM (excluding the header and first <hr>)
@@ -70,8 +74,10 @@ function drawLibrary() {
     for (let book of myLibrary) {
         let bookBox = document.createElement("div");
         bookBox.classList.add("book");
+        if (book.read){ bookBox.classList.add("read-bg") };
+        // Iterate through properties & create element
         for (let prop in book) {
-            if (prop === "bookID"){ break; };
+            if (prop === "bookID") { break; };
             let propBox = document.createElement("div");
             propBox.classList.add(`book-${prop}`);
             // Add read button with true or false selected
@@ -87,21 +93,21 @@ function drawLibrary() {
         bookBox.setAttribute("data", `${book.bookID}`);
         library.appendChild(bookBox);
     }
+    createSwitches();
 }
 
 drawLibrary();
 
 
 // Event listeners for toggling read/unread
-
-let readSwitches = document.querySelectorAll(".book-read");
-
-readSwitches.forEach(button => {
-    button.addEventListener("mousedown", function(event){
-        console.log(this)
+function createSwitches() {
+    let readSwitches = document.querySelectorAll(".book-read");
+    readSwitches.forEach(button => {
+        button.addEventListener("mousedown", function (event) {
+            toggleRead(this)
+        })
     })
-})
-
+}
 
 // Event listeners for sorting the table
 // I think this could be refactored to avoid using first/last children so much
