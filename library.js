@@ -1,5 +1,6 @@
 let library = document.querySelector("#book-container");
 
+let nextBookID = 4;
 let myLibrary = [
     {
         title: "1984",
@@ -7,6 +8,7 @@ let myLibrary = [
         year: "1949",
         genre: "Science Fiction",
         read: true,
+        bookID: 1,
     },
     {
         title: "Where the Wild Things Are",
@@ -14,13 +16,15 @@ let myLibrary = [
         year: "1963",
         genre: "Children's",
         read: true,
+        bookID: 2,
     },
     {
         title: "A Scanner Darkly",
         author: "Philip K. Dick",
         year: "1977",
         genre: "Science Fiction",
-        read: true,
+        read: false,
+        bookID: 3,
     },
 ];
 
@@ -30,6 +34,7 @@ function Book([title, author, year, genre, read]) {
     this.year = year;
     this.genre = genre;
     this.read = read;
+    this.bookID = nextBookID++;
 }
 
 function addBookToLibrary(book) {
@@ -38,12 +43,22 @@ function addBookToLibrary(book) {
 }
 
 function sortBooks(header, direction) {
-    myLibrary.sort(function(a, b){
-        if (a[header] > b[header]){
+    myLibrary.sort(function (a, b) {
+        if (a[header] > b[header]) {
             return direction === "down" ? -1 : 1;
         } else return direction === "down" ? 1 : -1;
     })
     drawLibrary();
+}
+
+function readSwitch(book) {
+    if (book[read]) {
+        this[read] = true;
+        this.classList.add("read-true");
+    } else {
+        this[read] = false;
+        this.classList.remove("read-true");
+    }
 }
 
 function drawLibrary() {
@@ -56,16 +71,36 @@ function drawLibrary() {
         let bookBox = document.createElement("div");
         bookBox.classList.add("book");
         for (let prop in book) {
+            if (prop === "bookID"){ break; };
             let propBox = document.createElement("div");
             propBox.classList.add(`book-${prop}`);
-            propBox.textContent = book[prop];
+            // Add read button with true or false selected
+            if (prop === "read") {
+                let readButton = document.createElement("div");
+                readButton.classList.add(`read-${book.read}`);
+                propBox.appendChild(readButton);
+            } else {
+                propBox.textContent = book[prop];
+            }
             bookBox.appendChild(propBox);
         }
+        bookBox.setAttribute("data", `${book.bookID}`);
         library.appendChild(bookBox);
     }
 }
 
 drawLibrary();
+
+
+// Event listeners for toggling read/unread
+
+let readSwitches = document.querySelectorAll(".book-read");
+
+readSwitches.forEach(button => {
+    button.addEventListener("mousedown", function(event){
+        console.log(this)
+    })
+})
 
 
 // Event listeners for sorting the table
@@ -74,11 +109,11 @@ drawLibrary();
 let bookHeaders = document.querySelectorAll(".book-sort");
 
 bookHeaders.forEach(book => {
-    book.addEventListener("mousedown", function(){
+    book.addEventListener("mousedown", function () {
         // Determine the sort direction
         let sortDirection = "down";
         let sortSymbol = this.lastElementChild;
-        if (sortSymbol.classList.contains("sort-down")){
+        if (sortSymbol.classList.contains("sort-down")) {
             sortDirection = "up";
         };
         // Reset all symbols

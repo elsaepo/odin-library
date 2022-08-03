@@ -5,7 +5,7 @@
 }
 
 :root {
-    --grid-columns: 6fr 2fr 1fr 2fr 0.6fr
+    --grid-columns: 6fr 3fr 1fr 2fr 0.8fr
 }
 
 html, body {
@@ -110,6 +110,22 @@ hr {
     color: black;
     transform: rotate(-90deg);
     transition: transform 0.2s ease;
+}
+
+
+.book-read {
+    background-color: white;
+    border: 1px solid rgb(194, 194, 194);
+    width: 80%;
+    height: 60%;
+}
+
+.read-true {
+    border: 2px solid green;
+}
+
+.read-false {
+    border: 2px solid red;
 }
 
 /* .book *:not(:first-child) {
