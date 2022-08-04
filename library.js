@@ -185,11 +185,7 @@ addButton.addEventListener("click", function (event) {
     // Prevent form submission (so as not to refresh the page)
     //event.preventDefault();
     // Creates a book using the Constructor function, passing in the values from input elements
-    let addedBook = new Book([...addInputs].map(node => {
-        if (node.getAttribute("type") === "checkbox"){
-            return node.checked;
-        } else return node.value;
-    }));
+    let addedBook = new Book([...addInputs].map(node => node.checked || node.value));
     addBookToLibrary(addedBook);
     // Clears the input values
     [...addInputs].map(node => node.value = "");

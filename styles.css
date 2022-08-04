@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700&family=Roboto+Mono:wght@200;400;700&display=swap');
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 :root {
-    --grid-columns: 6fr 3fr 1fr 2fr 0.8fr
+    --grid-columns: 6fr 3fr 1.2fr 2.4fr 0.9fr
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 5vh 0 0 0;
     font-family: Poppins, Arial, sans-serif;
@@ -21,7 +24,8 @@ h1 {
     margin-bottom: 0;
 }
 
-h2, p {
+h2,
+p {
     margin: 0;
     font-size: inherit;
 }
@@ -81,10 +85,8 @@ button:active {
     border-bottom: 1px solid rgb(209, 209, 209);
 }
 
-hr {
-    display: none;
-    border: none;
-    border-top: 1px solid rgb(209, 209, 209);
+.book>div {
+    padding-right: 6px;
 }
 
 .book-sort {
@@ -124,7 +126,7 @@ hr {
 /* Read Toggles */
 
 .book-read {
-    background: linear-gradient(rgba(0,0,0,0) 20%, rgb(240, 240, 240) 20%, rgb(240, 240, 240) 80%, rgba(0,0,0,0) 80%);
+    background: linear-gradient(rgba(0, 0, 0, 0) 20%, rgb(240, 240, 240) 20%, rgb(240, 240, 240) 80%, rgba(0, 0, 0, 0) 80%);
     border: 0px solid rgb(194, 194, 194);
     width: 80%;
     height: 60%;
@@ -167,6 +169,15 @@ hr {
     background-color: white;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.book-delete::after {
+    content: "✕";
+    font-size: 1.4rem;
+    color: grey;
+    display: inline-block;
+    transform: translate(3px, 0px)
 }
 
 .book-delete:hover {
@@ -177,6 +188,7 @@ hr {
 
 .book-delete:hover::after {
     content: "DELETE";
+    font-size: 1rem;
     position: absolute;
     left: 18px;
     color: grey;
@@ -244,7 +256,8 @@ hr {
 }
 
 [type="checkbox"] {
-    width: 40px; height: 40px;
+    width: 40px;
+    height: 40px;
     transition: box-shadow .3s;
     cursor: pointer;
     border: 0;
@@ -254,4 +267,52 @@ hr {
 
 [type="checkbox"]:checked {
     box-shadow: inset 0 0 0 15px rgb(80, 80, 80);
+}
+
+@media only screen and (max-width: 1100px) {
+    #library-container {
+        width: 80vw;
+    }
+
+    .book {
+        grid-template-columns: 4fr 3fr 1fr 0.8fr;
+        height: 50px;
+    }
+
+    .book-genre,
+    .book-genre-header {
+        display: none;
+    }
+
+    .book-delete {
+        left: min(calc(90% + 8px));
+    }
+
+    .book-read {
+        background: linear-gradient(rgba(0, 0, 0, 0) 20%, rgb(240, 240, 240) 20%, rgb(240, 240, 240) 80%, rgba(0, 0, 0, 0) 80%);
+        width: 80%;
+        height: 40%;
+    }
+
+    .book-read * {
+        height: 16px;
+        width: 16px;
+    }
+
+    .read-true {
+        transform: translateX(calc(6vw - 16px));
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .book {
+        grid-template-columns: 4fr 3fr 60px;
+        height: 60px;
+    }
+    .book-year, .book-year-header {
+        display: none;
+    }
+    .read-true {
+        transform: translateX(32px);
+    }
 }
