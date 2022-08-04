@@ -51,19 +51,32 @@ function sortBooks(header, direction) {
     drawLibrary();
 }
 
+function getID(node){
+    return node.parentElement.getAttribute("data");
+}
+
+function getIndexFromID(id){
+    return myLibrary.findIndex(obj => obj.bookID === Number(id));
+}
+
 function toggleRead(book) {
-    let thisBookID = book.parentElement.getAttribute("data");
-    let thisBookIndex = myLibrary.findIndex(obj => obj.bookID === Number(thisBookID));
-    if (myLibrary[thisBookIndex].read){
+    let thisBookID = getID(book);
+    let thisBookIndex = getIndexFromID(thisBookID);
+    if (myLibrary[thisBookIndex].read) {
         myLibrary[thisBookIndex].read = false;
     } else {
         myLibrary[thisBookIndex].read = true;
     }
-    console.log(book)
     book.parentElement.classList.toggle("read-bg");
     book.firstChild.classList.toggle("read-true");
 }
 
+function deleteBook(book){
+    let thisBookID = getID(book);
+    let thisBookIndex = getIndexFromID(thisBookID);
+    myLibrary.splice(thisBookIndex, 1);
+    book.parentElement.remove();
+}
 
 function drawLibrary() {
     // Deletes the current library DOM (excluding the header and first <hr>)
@@ -74,13 +87,14 @@ function drawLibrary() {
     for (let book of myLibrary) {
         let bookBox = document.createElement("div");
         bookBox.classList.add("book");
-        if (book.read){ bookBox.classList.add("read-bg") };
+        if (book.read) { bookBox.classList.add("read-bg") };
+
         // Iterate through properties & create element
         for (let prop in book) {
             if (prop === "bookID") { break; };
             let propBox = document.createElement("div");
             propBox.classList.add(`book-${prop}`);
-            // Add read button with true or false selected
+            // For read button with true or false selected
             if (prop === "read") {
                 let readButton = document.createElement("div");
                 readButton.classList.add(`read-${book.read}`);
@@ -90,21 +104,34 @@ function drawLibrary() {
             }
             bookBox.appendChild(propBox);
         }
+        let deleteBox = document.createElement("div");
+        deleteBox.classList.add("book-delete")
+        bookBox.appendChild(deleteBox);
         bookBox.setAttribute("data", `${book.bookID}`);
         library.appendChild(bookBox);
     }
     createSwitches();
+    createDeleteButtons();
 }
 
 drawLibrary();
 
 
-// Event listeners for toggling read/unread
+// Event listeners for toggling read/unread, deleting books
 function createSwitches() {
     let readSwitches = document.querySelectorAll(".book-read");
     readSwitches.forEach(button => {
-        button.addEventListener("mousedown", function (event) {
+        button.addEventListener("mousedown", function () {
             toggleRead(this)
+        })
+    })
+}
+
+function createDeleteButtons() {
+    let deleteButtons = document.querySelectorAll(".book-delete");
+    deleteButtons.forEach(button => {
+        button.addEventListener("mousedown", function () {
+            deleteBook(this)
         })
     })
 }
@@ -156,9 +183,13 @@ formButton.addEventListener("mousedown", function (event) {
 
 addButton.addEventListener("click", function (event) {
     // Prevent form submission (so as not to refresh the page)
-    event.preventDefault();
+    //event.preventDefault();
     // Creates a book using the Constructor function, passing in the values from input elements
-    let addedBook = new Book([...addInputs].map(node => node.value));
+    let addedBook = new Book([...addInputs].map(node => {
+        if (node.getAttribute("type") === "checkbox"){
+            return node.checked;
+        } else return node.value;
+    }));
     addBookToLibrary(addedBook);
     // Clears the input values
     [...addInputs].map(node => node.value = "");
