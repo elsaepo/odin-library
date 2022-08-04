@@ -10,6 +10,11 @@
     --grid-columns: 6fr 3fr 1.2fr 2.4fr 0.9fr
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 html,
 body {
     margin: 0;
@@ -244,7 +249,7 @@ button:active {
 }
 
 #add-container input {
-    width: calc(100% - 24px);
+    width: calc(100% - 12px);
     height: 28px;
     border: 1px solid black;
     font-size: 1.1rem;
@@ -301,6 +306,15 @@ button:active {
 
     .read-true {
         transform: translateX(calc(6vw - 16px));
+    }
+    #add-container form {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 80px auto;
+        grid-template-rows: repeat(5, 1fr);
+    }
+    [type="checkbox"] {
+        width: 30px !important;
     }
 }
 
