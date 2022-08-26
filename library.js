@@ -28,13 +28,15 @@ const myLibrary = [
     },
 ];
 
-function Book([title, author, year, genre, read]) {
-    this.title = title;
-    this.author = author;
-    this.year = year;
-    this.genre = genre;
-    this.read = read;
-    this.bookID = nextBookID++;
+class Book {
+    constructor([title, author, year, genre, read]){
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.genre = genre;
+        this.read = read;
+        this.bookID = nextBookID++;
+    }
 }
 
 function addBookToLibrary(book) {
