@@ -256,6 +256,10 @@ button:active {
     padding: 8px;
 }
 
+#add-container input:invalid {
+    border: 2px solid red;
+}
+
 #add-container button {
     padding: 8px 10px;
 }

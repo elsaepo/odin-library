@@ -29,7 +29,7 @@ const myLibrary = [
 ];
 
 class Book {
-    constructor([title, author, year, genre, read]){
+    constructor([title, author, year, genre, read]) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -53,11 +53,11 @@ function sortBooks(header, direction) {
     drawLibrary();
 }
 
-function getID(node){
+function getID(node) {
     return node.parentElement.getAttribute("data");
 }
 
-function getIndexFromID(id){
+function getIndexFromID(id) {
     return myLibrary.findIndex(obj => obj.bookID === Number(id));
 }
 
@@ -73,7 +73,7 @@ function toggleRead(book) {
     book.firstChild.classList.toggle("read-true");
 }
 
-function deleteBook(book){
+function deleteBook(book) {
     let thisBookID = getID(book);
     let thisBookIndex = getIndexFromID(thisBookID);
     myLibrary.splice(thisBookIndex, 1);
@@ -181,7 +181,7 @@ formButton.addEventListener("mousedown", function (event) {
         event.target.textContent = "-";
     }
 
-})
+});
 
 addButton.addEventListener("click", function (event) {
     // Prevent form submission (so as not to refresh the page)
@@ -192,3 +192,11 @@ addButton.addEventListener("click", function (event) {
     // Clears the input values
     [...addInputs].map(node => node.value = "");
 })
+
+// Need to validate:
+// title (required)
+// author (required)
+// date (between -2000 and current year)
+// genre (numbers and letters)
+
+
