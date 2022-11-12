@@ -38,16 +38,16 @@
             <a href="#button-container"><button id="add-book">+</button></a>
         </div>
         <div id="add-container" class="hidden">
-            <form id="add-form">
+            <form id="add-form" method="" action="">
                 <label for="title">Title:</label>
                 <label for="author">Author:</label>
                 <label for="year">Year:</label>
                 <label for="genre">Genre:</label>
                 <label for="read">Read?</label>
-                <input type="text" name="title" id="title" required>
-                <input type="text" name="author" id="author" required>
-                <input type="number" name="year" id="year" min="1" max="3000">
-                <input type="text" name="genre" id="genre">
+                <input type="text" name="title" id="title" required maxlength="80">
+                <input type="text" name="author" id="author" required maxlength="40">
+                <input type="number" name="year" id="year" min="-2000" max="2030">
+                <input type="text" name="genre" id="genre" maxlength="30">
                 <input type="checkbox" name="read" id="read">
             </form>
             <button id="add-button" form="add-form" type="submit">add book.</button>
