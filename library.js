@@ -29,7 +29,7 @@ const myLibrary = [
 ];
 
 class Book {
-    constructor([title, author, year, genre, read]){
+    constructor([title, author, year, genre, read]) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -53,11 +53,11 @@ function sortBooks(header, direction) {
     drawLibrary();
 }
 
-function getID(node){
+function getID(node) {
     return node.parentElement.getAttribute("data");
 }
 
-function getIndexFromID(id){
+function getIndexFromID(id) {
     return myLibrary.findIndex(obj => obj.bookID === Number(id));
 }
 
@@ -73,7 +73,7 @@ function toggleRead(book) {
     book.firstChild.classList.toggle("read-true");
 }
 
-function deleteBook(book){
+function deleteBook(book) {
     let thisBookID = getID(book);
     let thisBookIndex = getIndexFromID(thisBookID);
     myLibrary.splice(thisBookIndex, 1);
@@ -164,13 +164,14 @@ bookHeaders.forEach(book => {
 
 // Event listener & logic for Book Add button
 
+let addForm = document.querySelector("#add-form");
 let formButton = document.querySelector("#add-book");
-let addForm = document.querySelector("#add-container");
+let addContainer = document.querySelector("#add-container");
 let addButton = document.querySelector("#add-button");
 let addInputs = document.querySelectorAll("#add-form input");
 
 formButton.addEventListener("mousedown", function (event) {
-    addForm.classList.toggle("hidden");
+    addContainer.classList.toggle("hidden");
     if (event.target.classList.contains("clicked")) {
         event.target.classList.remove("clicked");
         event.target.classList.add("clicked-reverse");
@@ -180,15 +181,59 @@ formButton.addEventListener("mousedown", function (event) {
         event.target.classList.add("clicked");
         event.target.textContent = "-";
     }
+});
 
-})
+// Form validity checks
+const formTitle = document.getElementById("title");
+const formAuthor = document.getElementById("author");
+const formYear = document.getElementById("year");
+const formGenre = document.getElementById("genre");
 
-addButton.addEventListener("click", function (event) {
+formTitle.addEventListener("input", (event) => {
+    if (!formTitle.validity.valid) {
+        formTitle.setCustomValidity(`Title must be between 1 and ${formTitle.maxLength} characters.`);
+        formTitle.reportValidity();
+    } else {
+        formTitle.setCustomValidity("");
+    }
+});
+
+formAuthor.addEventListener("input", (event) => {
+    if (!formAuthor.validity.valid) {
+        formAuthor.setCustomValidity(`Author must be between 1 and ${formAuthor.maxLength} characters.`);
+        formAuthor.reportValidity();
+    } else {
+        formAuthor.setCustomValidity("");
+    }
+});
+
+formYear.addEventListener("input", (event) => {
+    if (!formYear.validity.valid) {
+        formYear.setCustomValidity(`Year must be between ${formYear.min * -1}BC and ${formYear.max}AD`);
+        formYear.reportValidity();
+    } else {
+        formYear.setCustomValidity("");
+    }
+});
+
+formGenre.addEventListener("input", (event) => {
+    if (!formGenre.validity.valid) {
+        formGenre.setCustomValidity(`Genre must be between 1 and ${formGenre.maxlength} characters.`);
+        formGenre.reportValidity();
+    } else {
+        formGenre.setCustomValidity("");
+    }
+});
+
+addForm.addEventListener("submit", function (event) {
     // Prevent form submission (so as not to refresh the page)
-    //event.preventDefault();
-    // Creates a book using the Constructor function, passing in the values from input elements
-    let addedBook = new Book([...addInputs].map(node => node.checked || node.value));
-    addBookToLibrary(addedBook);
-    // Clears the input values
-    [...addInputs].map(node => node.value = "");
-})
+    event.preventDefault();
+    if ([...addInputs].every(input => input.validity.valid)) {
+        // Creates a book using the Constructor function, passing in the values from input elements
+        let addedBook = new Book([...addInputs].map(node => node.checked || node.value));
+        addBookToLibrary(addedBook);
+        // Clears the input values
+        [...addInputs].map(input => input.value = "");
+    }
+
+});
